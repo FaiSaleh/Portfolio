@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaiSa - AI Developer Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .floating-shapes:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-shapes:nth-child(2) {
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+            border-radius: 20px;
+        }
+
+        .floating-shapes:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+            transform: rotate(45deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .lang-toggle {
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border: none;
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(255, 0, 255, 0.4);
+        }
+
+        /* Arabic RTL Support */
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .rtl .nav-container {
+            flex-direction: row-reverse;
+        }
+
+        .rtl .nav-links {
+            flex-direction: row-reverse;
+        }
+
+        .rtl .about-grid {
+            grid-template-columns: 2fr 1fr;
+        }
+
+        .rtl .hero-content {
+            text-align: right;
+        }
+
+        .rtl .section h2 {
+            text-align: center;
+        }
+
+        /* Arabic Font Support */
+        .arabic-text {
+            font-family: 'Arial', 'Tahoma', 'Segoe UI', sans-serif;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #00ffff;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 10;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.7)); }
+            100% { filter: drop-shadow(0 0 30px rgba(255, 0, 255, 0.9)); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Al-Khobar Skyline */
+        .skyline {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to top, #1a1a2e, transparent);
+        }
+
+        .water-tower {
+            position: absolute;
+            bottom: 50px;
+            right: 20%;
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(145deg, #2d3748, #4a5568);
+            border-radius: 10px 10px 0 0;
+            animation: pulse 3s infinite;
+        }
+
+        .water-tower::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #00ffff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .avatar-container {
+            position: relative;
+        }
+
+        .avatar {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            animation: rotate 10s infinite linear;
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Portfolio Section */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) rotateX(10deg);
+            box-shadow: 0 25px 50px rgba(255, 0, 255, 0.3);
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-grid { grid-template-columns: 1fr; text-align: center; }
+            .nav-links { display: none; }
+            .avatar { width: 200px; height: 200px; font-size: 4rem; }
+            
+            .lang-switcher {
+                margin-left: 1rem;
+            }
+            
+            .rtl .lang-switcher {
+                margin-left: 0;
+                margin-right: 1rem;
+            }
+            
+            .rtl .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes"></div>
+        <div class="floating-shapes"></div>
+        <div class="floating-shapes"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo" data-en="AI Portfolio 🚀" data-ar="مدار 🚀">Madar 🚀</div>
+            <div class="nav-links">
+                <a href="#home" data-en="Home" data-ar="الرئيسية">Home</a>
+                <a href="#about" data-en="About" data-ar="نبذة">About</a>
+                <a href="#portfolio" data-en="Portfolio" data-ar="المعرض">Portfolio</a>
+                <a href="#services" data-en="Services" data-ar="الخدمات">Services</a>
+                <a href="#contact" data-en="Contact" data-ar="التواصل">Contact</a>
+            </div>
+            <div class="lang-switcher">
+                <button class="lang-toggle" onclick="toggleLanguage()">
+                    <span id="lang-btn-text">عربي</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1 data-en="AI Developer & Digital Creator" data-ar="مطوّر ذكاء اصطناعي وصانع محتوى رقمي">AI Developer & Digital Creator</h1>
+            <p data-en="The name Madar was chosen to reflect a vision of being a center for ideas, progress, and exploration, much like an orbit that connects and sustains motion" data-ar="مدار: هو المسار الذي تسلكه الأجرام السماوية في حركتها المنتظمة حول مركزٍ ما. ومنه جاء المعنى الرمزي: المنظومة، المركز، والاتجاه الذي تدور حوله الأفكار والطموحات.">The name Madar was chosen to reflect a vision of being a center for ideas, progress, and exploration, much like an orbit that connects and sustains motion</p>
+            <p data-en="Continuous motion towards growth and knowledge. A central hub where ideas, creativity, and innovation converge." data-ar="">Continuous motion towards growth and knowledge. A central hub where ideas, creativity, and innovation converge.</p>
+
+            <a href="#about" class="cta-button" data-en="Explore My World 🌟" data-ar="استكشف عالمي 🌟">Explore My World 🌟</a>
+        </div>
+        
+        <!-- Al-Khobar Inspired Elements -->
+        <div class="skyline"></div>
+        <div class="water-tower"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="fade-in" data-en="About Me 👨‍💻" data-ar="نبذة عني 👨‍💻">About Me 👨‍💻</h2>
+        <div class="about-grid">
+            <div class="avatar-container fade-in">
+                <div class="avatar">🧠</div>
+            </div>
+            <div class="fade-in">
+                <h3 style="font-size: 2rem; margin-bottom: 1rem; color: #00ffff;" data-en="AI Enthusiast & Developer" data-ar="مطور ذكاء اصطناعي">AI Enthusiast & Developer</h3>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;" data-en="I'm passionate about creating intelligent solutions that bridge the gap between human creativity and artificial intelligence. With expertise in modern programming languages and cutting-edge AI technologies, I transform ideas into reality." data-ar=" شغوف بإنشاء حلول ذكية تربط بين الإبداع البشري والذكاء الاصطناعي. مع خبرتي في لغات البرمجة الحديثة وتقنيات الذكاء الاصطناعي المتطورة، أحول الأفكار إلى واقع.">
+                    I'm passionate about creating intelligent solutions 
+                    that bridge the gap between human creativity and artificial intelligence. With expertise in modern 
+                    programming languages and cutting-edge AI technologies, I transform ideas into reality.
+                </p>
+                
+                <h4 style="color: #ff00ff; margin-bottom: 1rem;" data-en="🎓 Education & Expertise:" data-ar="🎓 التعليم والخبرة:">🎓 Education & Expertise:</h4>
+                <ul style="list-style: none; margin-bottom: 2rem;">
+                    <li data-en="🔬 Artificial Intelligence & Data Science" data-ar="🔬 الذكاء الاصطناعي وعلوم البيانات">🔬 Artificial Intelligence & Data Science</li>
+                    <li data-en="💻 Full-Stack Web Development" data-ar="💻 تطوير الويب الشامل">💻 Full-Stack Web Development</li>
+                    <li data-en="🎨 UI/UX Design & 3D Graphics" data-ar="🎨 تصميم واجهات المستخدم والرسوميات ثلاثية الأبعاد">🎨 UI/UX Design & 3D Graphics</li>
+                    <li data-en="📊 Machine Learning & Deep Learning" data-ar="📊 التعلم الآلي والتعلم العميق">📊 Machine Learning & Deep Learning</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="skills-grid fade-in">
+            <div class="skill-card">
+                <h3>🐍 Python</h3>
+                <p data-en="AI/ML Development, Data Analysis, Automation" data-ar="تطوير الذكاء الاصطناعي، تحليل البيانات، الأتمتة">AI/ML Development, Data Analysis, Automation</p>
+            </div>
+            <div class="skill-card">
+                <h3>☕ Java</h3>
+                <p data-en="Enterprise Applications, Android Development" data-ar="تطبيقات المؤسسات">Enterprise Applications</p>
+            </div>
+            <div class="skill-card">
+                <h3>⚡ C++</h3>
+                <p data-en="System Programming, Performance Optimization" data-ar="برمجة الأنظمة، تحسين الأداء">System Programming, Performance Optimization</p>
+            </div>
+            <div class="skill-card">
+                <h3>🌐 Web Tech</h3>
+                <p data-en="HTML5, CSS3, JavaScript, React, Node.js" data-ar="HTML5, CSS3, JavaScript, React, Node.js">HTML5, CSS3, JavaScript, React, Node.js</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section">
+        <h2 class="fade-in" data-en="My Portfolio 🚀" data-ar="معرض أعمالي 🚀">My Portfolio 🚀</h2>
+        <div class="portfolio-grid">
+            <div class="project-card fade-in">
+                <h3 style="color: #00ffff; margin-bottom: 1rem;" data-en="🤖 AI Chatbot Platform" data-ar="🤖 منصة روبوت المحادثة الذكي">🤖 AI Chatbot Platform</h3>
+                <p data-en="Developed an intelligent chatbot using NLP and machine learning algorithms. Features include natural language understanding, context awareness, and multi-language support." data-ar="طورت روبوت محادثة ذكي باستخدام معالجة اللغة الطبيعية وخوارزميات التعلم الآلي. يتضمن فهم اللغة الطبيعية والوعي السياقي ودعم متعدد اللغات.">Developed an intelligent chatbot using NLP and machine learning algorithms. Features include 
+                   natural language understanding, context awareness, and multi-language support.</p>
+                <div style="margin-top: 1rem;">
+                    <span style="background: rgba(0,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; margin-right: 0.5rem;">Python</span>
+                    <span style="background: rgba(255,0,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; margin-right: 0.5rem;">TensorFlow</span>
+                    <span style="background: rgba(255,255,0,0.2); padding: 0.3rem 0.8rem; border-radius: 20px;">Flask</span>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3 style="color: #ff00ff; margin-bottom: 1rem;" data-en="📊 Data Visualization Dashboard" data-ar="📊 لوحة تصور البيانات">📊 Data Visualization Dashboard</h3>
+                <p data-en="Interactive dashboard for real-time data analysis and visualization. Built with modern web technologies and featuring dynamic charts, filters, and export capabilities." data-ar="لوحة تفاعلية لتحليل وتصور البيانات في الوقت الفعلي. مبنية بتقنيات ويب حديثة مع مخططات ديناميكية ومرشحات وإمكانيات التصدير.">Interactive dashboard for real-time data analysis and visualization. Built with modern web 
+                   technologies and featuring dynamic charts, filters, and export capabilities.</p>
+                <div style="margin-top: 1rem;">
+                    <span style="background: rgba(0,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; margin-right: 0.5rem;">React</span>
+                    <span style="background: rgba(255,0,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; margin-right: 0.5rem;">D3.js</span>
+                    <span style="background: rgba(255,255,0,0.2); padding: 0.3rem 0.8rem; border-radius: 20px;">Python</span>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3 style="color: #ffff00; margin-bottom: 1rem;" data-en="🏪 Machine Learning Models" data-ar="🏪 نماذج التعلم الآلي">🏪 Machine Learning Models</h3>
+                <p data-en="Applying Machine Learning models to solve real-world problems, including early detection, predictive analytics, and data-driven decision-making." data-ar="تطبيق نماذج التعلم الآلي لحل المشكلات الواقعية، بما في ذلك الاكتشاف المبكر والتحليلات التنبؤية واتخاذ القرارات القائمة على البيانات.">Applying Machine Learning models to solve real-world problems, including early detection, predictive analytics, and data-driven decision-making.</p>
+                <div style="margin-top: 1rem;">
+                    <span style="background: rgba(0,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; margin-right: 0.5rem;">Java</span>
+                    <span style="background: rgba(255,0,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; margin-right: 0.5rem;">Spring Boot</span>
+                    <span style="background: rgba(255,255,0,0.2); padding: 0.3rem 0.8rem; border-radius: 20px;">MySQL</span>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <h3 style="color: #00ff88; margin-bottom: 1rem;" data-en="🎯 Smart Recommendation System" data-ar="🎯 نظام التوصيات الذكي">🎯 Smart Recommendation System</h3>
+                <p data-en="Machine learning-based recommendation engine using collaborative filtering and content-based algorithms to provide personalized suggestions." data-ar="محرك توصيات مبني على التعلم الآلي يستخدم التصفية التعاونية وخوارزميات المحتوى لتقديم اقتراحات شخصية.">Machine learning-based recommendation engine using collaborative filtering and content-based 
+                   algorithms to provide personalized suggestions.</p>
+                <div style="margin-top: 1rem;">
+                    <span style="background: rgba(0,255,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; margin-right: 0.5rem;">Python</span>
+                    <span style="background: rgba(255,0,255,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; margin-right: 0.5rem;">Scikit-learn</span>
+                    <span style="background: rgba(255,255,0,0.2); padding: 0.3rem 0.8rem; border-radius: 20px;">Pandas</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <h2 class="fade-in" data-en="What I Offer 💼" data-ar="ما أقدمه 💼">What I Offer 💼</h2>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <span class="service-icon">🌐</span>
+                <h3 data-en="Website Development" data-ar="تطوير المواقع">Website Development</h3>
+                <p data-en="Modern, responsive, and user-friendly websites built with cutting-edge technologies. From simple portfolios to complex web applications." data-ar="مواقع حديثة ومتجاوبة وسهلة الاستخدام مبنية بأحدث التقنيات. من المحافظ البسيطة إلى تطبيقات الويب المعقدة.">Modern, responsive, and user-friendly websites built with cutting-edge technologies. 
+                   From simple portfolios to complex web applications.</p>
+                <ul style="text-align: left; margin-top: 1rem;">
+                    <li data-en="✨ Modern UI/UX Design" data-ar="✨ تصميم واجهات حديثة">✨ Modern UI/UX Design</li>
+                    <li data-en="📱 Mobile-Responsive" data-ar="📱 متجاوب مع الهواتف">📱 Mobile-Responsive</li>
+                    <li data-en="⚡ Fast Loading Speed" data-ar="⚡ سرعة تحميل عالية">⚡ Fast Loading Speed</li>
+                    <li data-en="🔒 Security Optimized" data-ar="🔒 محسن للأمان">🔒 Security Optimized</li>
+                </ul>
+            </div>
+
+            <div class="service-card fade-in">
+                <span class="service-icon">🛠️</span>
+                <h3 data-en="Software Projects" data-ar="المشاريع البرمجية">Software Projects</h3>
+                <p data-en="Custom software solutions in Python, Java, and C++. From AI tools to data applications and system development projects." data-ar="حلول برمجية مخصصة بـ Python و Java و C++. من أدوات الذكاء الاصطناعي إلى تطبيقات البيانات ومشاريع تطوير الأنظمة.">Custom software solutions in Python, Java, and C++. From AI tools to data applications 
+                   and system development projects.</p>
+                <ul style="text-align: left; margin-top: 1rem;">
+                    <li data-en="🤖 AI & ML Applications" data-ar="🤖 تطبيقات الذكاء الاصطناعي">🤖 AI & ML Applications</li>
+                    <li data-en="📊 Data Analysis Tools" data-ar="📊 أدوات تحليل البيانات">📊 Data Analysis Tools</li>
+                    <li data-en="🔧 System Development" data-ar="🔧 تطوير الأنظمة">🔧 System Development</li>
+                    <li data-en="🚀 Performance Optimization" data-ar="🚀 تحسين الأداء">🚀 Performance Optimization</li>
+                </ul>
+            </div>
+
+            <div class="service-card fade-in">
+                <span class="service-icon">🎨</span>
+                <h3 data-en="Design Services" data-ar="خدمات التصميم">Design Services</h3>
+                <p data-en="Creative design solutions for businesses including menu design, digital catalogs, and branded websites that capture your brand identity." data-ar="حلول تصميم إبداعية للشركات تشمل تصميم القوائم والكتالوجات الرقمية والمواقع التي تعكس هوية علامتك التجارية.">Creative design solutions for businesses including menu design, digital catalogs, 
+                   and branded websites that capture your brand identity.</p>
+                <ul style="text-align: left; margin-top: 1rem;">
+                    <li data-en="🍽️ Restaurant Menus" data-ar="🍽️ قوائم المطاعم">🍽️ Restaurant Menus</li>
+                    <li data-en="📋 Digital Catalogs" data-ar="📋 الكتالوجات الرقمية">📋 Digital Catalogs</li>
+                    <li data-en="🏢 Business Branding" data-ar="🏢 هوية الأعمال">🏢 Business Branding</li>
+                    <li data-en="🎭 Visual Identity" data-ar="🎭 الهوية البصرية">🎭 Visual Identity</li>
+                </ul>
+            </div>
+
+            <div class="service-card fade-in">
+                <span class="service-icon">💡</span>
+                <h3 data-en="Creative Solutions" data-ar="الحلول الإبداعية">Creative Solutions</h3>
+                <p data-en="Innovative creative projects combining technology and design. 3D-style layouts, interactive portfolios, and unique digital experiences." data-ar="مشاريع إبداعية مبتكرة تجمع بين التكنولوجيا والتصميم. تخطيطات ثلاثية الأبعاد ومحافظ تفاعلية وتجارب رقمية فريدة.">Innovative creative projects combining technology and design. 3D-style layouts, 
+                   interactive portfolios, and unique digital experiences.</p>
+                <ul style="text-align: left; margin-top: 1rem;">
+                    <li data-en="🎯 Interactive Experiences" data-ar="🎯 تجارب تفاعلية">🎯 Interactive Experiences</li>
+                    <li data-en="🌟 3D Web Graphics" data-ar="🌟 رسوميات ويب ثلاثية الأبعاد">🌟 3D Web Graphics</li>
+                    <li data-en="🎪 Animation & Effects" data-ar="🎪 الرسوم المتحركة والمؤثرات">🎪 Animation & Effects</li>
+                    <li data-en="🚀 Cutting-edge Tech" data-ar="🚀 تقنيات متطورة">🚀 Cutting-edge Tech</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="fade-in" data-en="Let's Connect 🌟" data-ar="لنتواصل 🌟">Let's Connect 🌟</h2>
+        <div class="contact-form fade-in">
+            <form action="https://formspree.io/f/mvgbgyde" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Your Name" data-placeholder-en="Your Name" data-placeholder-ar="اسمك" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Your Email" data-placeholder-en="Your Email" data-placeholder-ar="بريدك الإلكتروني" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="project" placeholder="Project Type" data-placeholder-en="Project Type" data-placeholder-ar="نوع المشروع">
+                </div>
+                <div class="form-group">
+                    <textarea name="message" rows="5" placeholder="Tell me about your project..." data-placeholder-en="Tell me about your project..." data-placeholder-ar="أخبرني عن مشروعك..." required></textarea>
+                </div>
+                <button type="submit" class="cta-button" style="width: 100%;" data-en="Send Message 🚀" data-ar="إرسال الرسالة 🚀">Send Message 🚀</button>
+            </form>
+        </div>
+
+        <div class="social-links fade-in">
+            <a href="https://www.linkedin.com/in/fai-alanazi/" class="social-link" title="LinkedIn">LinkedIn</a>
+            <a href="https://github.com/FaiSaleh" class="social-link" title="GitHub">GitHub</a>
+            <a href="mailto:faisaleh79@gmail.com" class="social-link" title="Email">Email</a>
+            <a href="https://x.com/i_ve8i" class="social-link" title="X">X</a>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; opacity: 0.8;">
+            <p data-en="🏙️ Al-Khobar, Saudi Arabia 🇸🇦" data-ar="🏙️  الخبر الجميلة, المملكة العربية السعودية 🇸🇦">🏙️ Based in Al-Khobar, Saudi Arabia 🇸🇦</p>
+            <p style="margin-top: 0.5rem;" data-en="Ready to bring your ideas to life with AI and technology!" data-ar="مستعد لتحويل أفكارك إلى واقع بالذكاء الاصطناعي والتكنولوجيا!">Ready to bring your ideas to life with AI and technology!</p>
+        </div>
+    </section>
+
+    <script>
+        // Language switching functionality
+        let isArabic = false;
+
+        function toggleLanguage() {
+            isArabic = !isArabic;
+            const elements = document.querySelectorAll('[data-en][data-ar]');
+            const langBtn = document.getElementById('lang-btn-text');
+            const body = document.body;
+            
+            elements.forEach(element => {
+                if (isArabic) {
+                    element.textContent = element.getAttribute('data-ar');
+                } else {
+                    element.textContent = element.getAttribute('data-en');
+                }
+            });
+
+            // Handle form placeholders
+            const inputs = document.querySelectorAll('input[data-placeholder-en], textarea[data-placeholder-en]');
+            inputs.forEach(input => {
+                if (isArabic) {
+                    input.placeholder = input.getAttribute('data-placeholder-ar');
+                } else {
+                    input.placeholder = input.getAttribute('data-placeholder-en');
+                }
+            });
+
+            // Toggle RTL/LTR
+            if (isArabic) {
+                body.classList.add('rtl', 'arabic-text');
+                langBtn.textContent = 'English';
+            } else {
+                body.classList.remove('rtl', 'arabic-text');
+                langBtn.textContent = 'عربي';
+            }
+
+            // Re-run typing effect for hero title
+            const heroTitle = document.querySelector('.hero h1');
+            if (heroTitle) {
+                const newText = isArabic ? heroTitle.getAttribute('data-ar') : heroTitle.getAttribute('data-en');
+                typeWriter(heroTitle, newText, 100);
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Dynamic background particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = Math.random() * 10 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = `hsl(${Math.random() * 360}, 70%, 50%)`;
+            particle.style.borderRadius = '50%';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            particle.style.pointerEvents = 'none';
+            particle.style.opacity = '0.1';
+            particle.style.zIndex = '-1';
+            
+            document.body.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 0.1 },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 5000 + 3000,
+                easing: 'linear'
+            });
+            
+            animation.addEventListener('finish', () => {
+                particle.remove();
+            });
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = isArabic ? 
+                '🚀 شكراً لتواصلك معي! سأرد عليك قريباً!' : 
+                '🚀 Thanks for reaching out! I\'ll get back to you soon!';
+            alert(message);
+            this.reset();
+        });
+
+        // Add interactive hover effects to project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) rotateX(10deg) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateX(0) scale(1)';
+            });
+        });
+
+        // Typing effect for hero section
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function() {
+            const heroTitle = document.querySelector('.hero h1');
+            if (heroTitle) {
+                typeWriter(heroTitle, 'AI Developer & Digital Creator', 100);
+            }
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            const speed = 0.5;
+            
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * speed}px)`;
+            }
+        });
+
+        // Add glow effect to navigation on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 5px 20px rgba(0, 255, 255, 0.3)';
+                nav.style.borderBottom = '1px solid rgba(0, 255, 255, 0.5)';
+            } else {
+                nav.style.boxShadow = 'none';
+                nav.style.borderBottom = 'none';
+            }
+        });
+
+        // Interactive cursor effect
+        document.addEventListener('mousemove', function(e) {
+            const cursor = document.createElement('div');
+            cursor.style.position = 'fixed';
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursor.style.width = '10px';
+            cursor.style.height = '10px';
+            cursor.style.background = 'rgba(0, 255, 255, 0.3)';
+            cursor.style.borderRadius = '50%';
+            cursor.style.pointerEvents = 'none';
+            cursor.style.zIndex = '9999';
+            cursor.style.transform = 'translate(-50%, -50%)';
+            
+            document.body.appendChild(cursor);
+            
+            setTimeout(() => {
+                cursor.remove();
+            }, 500);
+        });
+
+        // Add click ripple effect
+        document.addEventListener('click', function(e) {
+            const ripple = document.createElement('div');
+            ripple.style.position = 'fixed';
+            ripple.style.left = e.clientX + 'px';
+            ripple.style.top = e.clientY + 'px';
+            ripple.style.width = '20px';
+            ripple.style.height = '20px';
+            ripple.style.background = 'rgba(255, 0, 255, 0.6)';
+            ripple.style.borderRadius = '50%';
+            ripple.style.pointerEvents = 'none';
+            ripple.style.zIndex = '9999';
+            ripple.style.transform = 'translate(-50%, -50%) scale(0)';
+            ripple.style.transition = 'all 0.6s ease-out';
+            
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.style.transform = 'translate(-50%, -50%) scale(10)';
+                ripple.style.opacity = '0';
+            }, 10);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    </script>
+</body>
+</html>
